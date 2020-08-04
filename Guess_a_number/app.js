@@ -1,63 +1,73 @@
-//Define variables
-let min = 1;
-max = 10;
-win_num = getRandomVal(max, min);
-guess_left = 3;
-total_chances = 3
+// Initialize variables
 
-//Read UI properties
-const number = document.querySelector('#number');
-const btn = document.querySelector('#btn1');
-const min_item = document.querySelector('.min');
-const max_item = document.querySelector('.max');
-const msg = document.querySelector('.message');
+let min = 1,
+    max = 10,
+    winningNumber = getRandomNum(min, max),
+    guessLeft = 3;
 
-//dynamically set values to UI
-min_item.textContent = min;
-max_item.textContent = max;
+// Read UI elements
+const game = document.querySelector('.game'),
+    minNum = document.querySelector('.min-num'),
+    maxNum = document.querySelector('.max-num'),
+    guessInput = document.querySelector('#guess-input'),
+    guessBtn = document.querySelector('#guess-btn'),
+    message = document.querySelector('.message');
 
-btn.addEventListener('click', function (e) {
-    if (number.value == NaN || number.value < min || number.value > max) {
-        err_msg = `Please enter a number between ${min} and ${max}`;
-        alertMessage(err_msg, 'text-danger')
-    } else {
-        guess_left -= 1;
-        console.log(win_num)
-        if (number.value == win_num) {
-            alert_msg = `${win_num} is correct,You Won!!!!`;
-            alertMessage(alert_msg, 'text-success');
-            btn.textContent = 'Play again'
-            btn.classList.add('play-again')
-            document.querySelector('.play-again').addEventListener('mousedown', function () {
-                window.location.reload();
-            })
-        } else if (guess_left == 0) {
-            alert_msg = `You Lost, Please try again`;
-            alertMessage(alert_msg, 'text-danger');
-            btn.textContent = 'Play again'
-            btn.classList.add('play-again')
-            document.querySelector('.play-again').addEventListener('mousedown', function () {
-                window.location.reload();
-            })
-        } else {
+// Dynamically set min and max
+minNum.textContent = min;
+maxNum.textContent = max;
 
-            alert_msg = `You have, ${guess_left} out of ${total_chances} left`;
-            alertMessage(alert_msg, 'text-danger');
+// getRandomNumber
+function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + 1);
+}
+
+// Event Listener
+guessBtn.addEventListener('click', function () {
+
+    const guess = parseInt(guessInput.value);
+
+    if (isNaN(guess) || guess < min || guess > max) {
+        setMessage(`Please enter number between ${min} and ${max}`, 'red');
+    }
+
+    if (guess === winningNumber) {
+        gameOver(true, `${winningNumber} is correct! You won`)
+    }
+    else {
+        guessLeft -= 1;
+        if (guessLeft === 0) {
+            gameOver(false, `You Lost, The correct number was ${winningNumber}`);
+        }
+        else {
+            guessInput.value = '';
+            guessInput.style.borderColor = 'red';
+            setMessage(`${guess} incorrect, ${guessLeft} guesses left`, 'red');
         }
     }
-    number.value = ''
+
 })
 
-function getRandomVal(max, min) {
-    return Math.floor(Math.random() * max, min);
-
+function setMessage(msg, color) {
+    message.textContent = msg;
+    message.style.color = color;
 }
 
-function alertMessage(msg, className) {
-    let alert_message = document.querySelector('#message');
-    alert_message.innerText = msg;
-    alert_message.className = `${className}`
+function gameOver(won, msg) {
+    let color;
+    won === true ? color = 'green' : color = 'red';
+    setMessage(msg, color);
+    guessInput.disabled = true;
+    guessInput.style.borderColor = color;
 
-
+    guessBtn.value = 'Play Again';
+    guessBtn.className = 'play-again';
 }
 
+// Play Again Event listner
+
+guessBtn.addEventListener('mousedown', function (e) {
+    if (e.target.className === 'play-again') {
+        window.location.reload();
+    }
+})
