@@ -4,55 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Management Project</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton-framework/1.1.1/skeleton.css"
+        integrity="sha512-bkbbtvfcVjmlzyq/v4GaSiyJY3DStQhRIbJY9D0qrheR4LgSNNzrEQcdkqdJQUbuYCkLkLCj5icLxdjxRQKsJg=="
+        crossorigin="anonymous" />
+    <title>Book List Project</title>
+    <style>
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .success,
+        .error {
+            color: white;
+            padding: 5px;
+            margin: 5px 0 15px 0;
+        }
+
+        .success {
+            background: green;
+        }
+
+        .error {
+            background: red;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="col-md-6 mx-auto my-5" id="main-class">
-            <h2 class="mb-3 heading">Book Management Project</h2>
-            <form action="#" autocomplete="off" id='form_id'>
-                <div class="mb-2">
-                    <label for="book_input"><strong>Book Title</strong> </label>
-                    <input type="text" class="form-control" id="book_input">
-                </div>
-                <div class="mb-2">
-                    <label for="author_input"><strong>Author</strong> </label>
-                    <input type="text" class="form-control" id="author_input">
-                </div>
-                <div class="mb-2">
-                    <label for="ISDN_input"><strong>#ISDN</strong> </label>
-                    <input type="text" class="form-control" id="ISDN_input">
-                </div>
-                <button class="btn btn-success btn-block my-3" id="btn1">Submit</button>
+        <h1>Book List</h1>
+        <form id="book-form" autocomplete="off">
+            <div>
+                <label for="title">Title</label>
+                <input type="text" id="title" class="u-full-width">
+            </div>
+            <div>
+                <label for="author">Author</label>
+                <input type="text" id="author" class="u-full-width">
+            </div>
+            <div>
+                <label for="isbn">Isbn#</label>
+                <input type="text" id="isbn" class="u-full-width">
+            </div>
+            <div>
+                <input type="submit" value="Submit" class="u-full-width" />
+            </div>
+        </form>
 
-            </form>
-            <table class="table table-striped table-borderless">
-                <thead>
+        <table class="u-full-width">
+            <thead>
+                <tr>
                     <th>Title</th>
                     <th>Author</th>
-                    <th>#ISDN</th>
+                    <th>ISBN</th>
                     <th></th>
-                </thead>
-                <tbody id="table_body">
-                </tbody>
-            </table>
-
-        </div>
+                </tr>
+            </thead>
+            <tbody id="book-list"></tbody>
+        </table>
     </div>
-
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="app.js"></script>
+    <script src="appes6.js"></script>
 </body>
 
 </html>
