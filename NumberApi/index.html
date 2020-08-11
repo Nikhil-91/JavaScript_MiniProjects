@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Number APi</title>
+    <style>
+        .result {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card card-body mt-4 p-4 bg-primary text-white">
+                    <h2 class="card-title">
+                        Number Facts
+                    </h2>
+                    <p>Enter a number, to get random fact</p>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="input-form" placeholder="Enter a number...">
+                    </div>
+                    <div class="card card-body result bg-primary text-white">
+                        <h3>Number Fact</h3>
+                        <p class="message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let text_input = document.querySelector('#input-form');
+        let result = document.querySelector('.result');
+        text_input.addEventListener('input', getApiData);
+        // function getApiData(e) {
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.open('GET', `http://numbersapi.com/${text_input.value}`, true);
+        //     xhr.onload = function () {
+        //         if (this.status === 200 && text_input.value != '') {
+        //             document.querySelector('.message').textContent = this.responseText;
+        //             document.querySelector('.result').style.display = 'block';
+        //         } else {
+        //             document.querySelector('.result').style.display = 'none';
+        //         }
+        //     }
+        //     xhr.send();
+        //     e.preventDefault();
+        // }
+
+        function getApiData(e) {
+            fetch(`http://numbersapi.com/${text_input.value}`).then(res => {
+                if (res.ok === true) {
+                    return res.text();
+                } else {
+                    throw new Exception('Exception while fetching API');
+                }
+            }).then(res => {
+                if (text_input.value !== '') {
+                    document.querySelector('.message').textContent = res;
+                    document.querySelector('.result').style.display = 'block';
+                } else {
+                    document.querySelector('.result').style.display = 'none';
+                }
+
+            }).catch(err => console.log(err));
+            e.preventDefault();
+        }
+
+    </script>
+</body>
+
+</html>
